@@ -1,0 +1,28 @@
+<mat-card class="loginCard">
+    <mat-card-content class="container" [formGroup]="loginForm" >
+        <div class="row justify-content-md-center loginheader">
+            Log In
+        </div>
+        <div class="row justify-content-md-center">
+            <mat-form-field  color="primary" class="loginControl">
+                <mat-label>Username</mat-label>
+                <input type="email" matInput formControlName="username">
+            </mat-form-field>
+            <mat-form-field  color="primary"  class="loginControl">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password">
+            </mat-form-field>
+        </div>
+        <div class="row justify-content-md-center">
+            <button mat-raised-button color="primary" class="loginBtn" [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button>
+        </div>
+        <div class="row justify-content-md-center">
+            Or Sign Up Using
+        </div>
+        <div class="row justify-content-center">
+            <img src="./assets/icons/facebook.png" class="social-icon col" alt="facebok">
+            <img src="./assets/icons/google-plus.png" class="social-icon col" alt="google">
+            <img src="./assets/icons/microsoft.png" class="social-icon col" alt="microsoft">
+        </div>
+    </mat-card-content>
+</mat-card>

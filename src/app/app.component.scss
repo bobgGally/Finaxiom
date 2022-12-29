@@ -1,7 +1,7 @@
 .example-container {
     width: 100%;
     height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    // border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .example-sidenav-content {
@@ -13,5 +13,27 @@
 }
 
 .example-sidenav {
-    padding: 20px;
+    padding: 20px 0px;
 }
+
+.listitem {
+    cursor: pointer !important;
+    padding: 0 31px;
+
+    .mdc-list-item__primary-text {
+        color: black;
+    }
+
+    &.activeMenu {
+        background: white;
+
+        .mdc-list-item__primary-text {
+            color: #2d7c83 !important;
+            font-weight: bold;
+        }
+
+    }
+
+
+}
+

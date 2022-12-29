@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 html,
 body {
     height: 100%;
@@ -9,7 +11,54 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     width: 100%;
-    height:100%;
+    height: 100%;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.wh100 {
+    width: 100%;
+    height: 100%;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.h100 {
+    height: 100%;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-step-header[aria-selected="true"],
+.mat-step-header[aria-selected="true"]:hover {
+    background-color: #137e83;
+    font-weight: 10px;
+
+    & div.mat-step-label.mat-step-label-active.mat-step-label-selected {
+        color: #FFF;
+    }
+}
+
+.mat-drawer.mat-drawer-side {
+    background: #237d83;
+    color: white;
+}
