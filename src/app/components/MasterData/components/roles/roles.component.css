@@ -1,0 +1,29 @@
+
+
+.role-active{
+  color: green;
+}
+
+.role-inactive{
+  color:red;
+}
+
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb{
+  background-color: #0085ca !important;
+}
+
+
+.selectionList-scroll-bar{
+  /* height:40vh; */
+  overflow-y:auto;
+  overflow-x: hidden;
+}
+
+.selectionList-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.selectionList-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}

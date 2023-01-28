@@ -1,0 +1,97 @@
+<div class="p10 white-bg hgt">
+  <div fxLayoutGap="10px" fxLayout="column" class="hgt" *ngIf="displayGroupTable">
+    <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="0px">
+      <mat-form-field class="groupSearch" appearance="outline" fxFlex="50">
+        <mat-label>Search Group</mat-label>
+        <input matInput type="text" (keyup)="applyFilter(searchValue)" [(ngModel)]="searchValue">
+        <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear"
+          (click)="applyFilter(searchValue='')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <button mat-flat-button color="primary" (click)="addEdit(false,'Add')" matTooltip="Add Group">
+          <mat-icon>group_add</mat-icon>
+        </button>
+        <button mat-flat-button (click)="getAllGroups()" color="primary" matTooltip="Refresh">Refresh <mat-icon>refresh
+          </mat-icon></button>
+      </div>
+
+    </div>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" *ngIf="displayGroupTable" class="mat-elevation-z8 wh100">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Group Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdDate">
+          <th mat-header-cell *matHeaderCellDef> Created On </th>
+          <td mat-cell *matCellDef="let element"> {{element.createdDate }} </td>
+        </ng-container>
+        <ng-container matColumnDef="tag">
+          <th mat-header-cell *matHeaderCellDef> Tag </th>
+          <td mat-cell *matCellDef="let element"> {{element.tag }} </td>
+        </ng-container>
+        <ng-container matColumnDef="modifiedDate">
+          <th mat-header-cell *matHeaderCellDef> Updated On </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastModifiedDate}} </td>
+        </ng-container>
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef> Active? </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf="element.status==activeStatusCode.active" class="group-active">check_circle</mat-icon>
+            <mat-icon *ngIf="element.status==activeStatusCode.inActive" class="group-inactive">highlight_off</mat-icon>
+          </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button matTooltip="Edit" (click)="addEdit(element,'Update')" class="iconbutton"
+              color="primary">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <!-- <button mat-icon-button matTooltip="Delete" class="iconbutton" color="warn">
+                <mat-icon aria-label="Delete" (click)="deleteGroup(element)">delete</mat-icon>
+              </button> -->
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="!displayGroupTable" [formGroup]="groupForm" fxLayout="column" fxLayoutGap="10px" class="hgt">
+    <div>
+      <h3 fxLayout="row" class="margin0">
+        <mat-label *ngIf="actionType==='Add'">Add New Group</mat-label>
+        <mat-label *ngIf="actionType==='Update'">Update Group</mat-label>
+      </h3>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="30px">
+      <mat-form-field class="groupName" appearance="outline" fxFlex="40">
+        <mat-label>Group Name</mat-label>
+        <input matInput maxlength="200" placeholder="Name" formControlName="name" trim="blur" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="40">
+        <mat-label>Tag</mat-label>
+        <mat-select matNativeControl formControlName="tagId">
+          <mat-option *ngFor="let group of userGroupTags" [value]="group.id">{{group.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxFlex="20" fxLayoutAlign="start center">
+        <mat-slide-toggle class="groupActive" formControlName="active">Active</mat-slide-toggle>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+      <button mat-flat-button type="button" class="group-cancelBtn" color="warn" (click)="discard()">Discard</button>
+      <button mat-flat-button type="submit" class="group-saveBtn" color="primary"
+        (click)="saveUpdateGroupData()">Save</button>
+    </div>
+  </div>
+
+</div>

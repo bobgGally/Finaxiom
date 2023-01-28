@@ -1,10 +1,28 @@
-<!-- <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom ">
+<header class="d-flex flex-wrap justify-content-center py-3  border-bottom ">
     <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <button mat-icon-button (click)="drawer.toggle()"> <mat-icon>menu</mat-icon></button>
-        <svg class="bi me-2" width="40" height="32">
-            <use xlink:href="#bootstrap" />
-        </svg>
-        <span class="fs-4">AXIOM</span>
+        <button mat-icon-button (click)="toggleMenu()"> <mat-icon>menu</mat-icon></button>
+        <img src="../../../assets/Asset 32.png" alt="" width="7%">
+        <span class="fs-4">FnTAX</span>
     </a>
+    <div>
+        <div fxLayout="row">
+            <button mat-button fxLayout="row" class="headerTitle" [matMenuTriggerFor]="profileMenu">
+                <div fxShow.gt-sm fxShow="false" fxLayout="column">
+                    <div>{{greet}} ,
+                        <!-- <mat-icon class="mat-18">arrow_drop_down</mat-icon> -->
+                    </div>
+                    <div>{{ global.userDetails?.displayName | titlecase}}</div>
 
-</header> -->
+                </div>
+            </button>
+            <img src="../../../assets/profile.png" alt="" class="prfImg">
+        </div>
+
+        <mat-menu #profileMenu="matMenu">
+            <span fxHide.gt-sm fxHide="false" class="p10">
+                <span>{{greet}}</span> <br> <span>{{ global.userDetails?.name | titlecase}}</span>
+            </span>
+            <button mat-menu-item (click)="signout()">Sign Out</button>
+        </mat-menu>
+    </div>
+</header>

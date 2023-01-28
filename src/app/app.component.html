@@ -1,7 +1,8 @@
 <mat-drawer-container class="example-container fixed-top" autosize *ngIf="loggedIn">
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <div class="row" style="padding: 20px;">
-      <span class="fs-1 text-center headerTitle">AXIOM</span>
+  <mat-drawer #drawer class="example-sidenav sideDrawer" mode="side" appSidenavload
+    (onCurrencyEvent)="loadSideNav(drawer)">
+    <div class="row justify-content-md-center" style="padding: 0px;margin: 0;width: 100%;">
+      <img src="../../../assets/Asset 32.png" alt="" style="width: 74%;padding: 15px;">
     </div>
 
     <mat-list role="list">
@@ -11,18 +12,10 @@
 
   </mat-drawer>
 
-  <div class="container-fluid">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom ">
-      <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <button mat-icon-button (click)="drawer.toggle()"> <mat-icon>menu</mat-icon></button>
-        <svg class="bi me-2" width="40" height="32">
-          <use xlink:href="#bootstrap" />
-        </svg>
-        <span class="fs-4">AXIOM</span>
-      </a>
+  <div class="container-fluid h100">
 
-    </header>
-    <div class="wh100">
+    <app-header></app-header>
+    <div class="wh100 innerContainer mat-elevation-z8">
       <router-outlet></router-outlet>
     </div>
 

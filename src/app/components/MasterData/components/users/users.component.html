@@ -1,0 +1,312 @@
+<!-- ------------------------------------------dont cahnge------------------------------------------------- -->
+
+<div class="p10 white-bg hgt">
+  <div fxLayoutGap="0px" fxLayout="column" *ngIf="displayUserTable" style="overflow: hidden;" class="hgtinner">
+    <div fxLayoutGap="5px" fxLayout="column">
+      <!-- <fieldset class="fldset">
+        <legend>Advanced Search / Export</legend>
+        <div fxLayout="column" [fxShow]="isAdvancedSearch">
+          <div fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="auto" fxLayoutGap="10px">
+              <mat-form-field fxFlex="25" appearance="outline">
+                <mat-label>Select Role</mat-label>
+                <mat-select [(ngModel)]="filterForm.role" [value]="filterForm.role">
+                  <mat-option *ngFor="let r of userRoles;" [value]="r.id">
+                    {{r.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="25" appearance="outline">
+                <mat-label>Select Country</mat-label>
+                <mat-select [(ngModel)]="filterForm.country" [value]="filterForm.country" multiple>
+                  <mat-option *ngFor="let group of userCountry" [value]="group.id">{{group.name}}
+                  </mat-option>
+
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="form-element" fxFlex="25" appearance="outline">
+                <mat-label>BU</mat-label>
+                <mat-select [(ngModel)]="filterForm.bu" [value]="filterForm.bu" multiple>
+                  <mat-option *ngFor="let group of userBU" [value]="group">{{group.name}}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+
+              <mat-form-field class="form-element" fxFlex="25" appearance="outline">
+                <mat-label>SBU</mat-label>
+                <mat-select [(ngModel)]="filterForm.sbu" [value]="filterForm.sbu" multiple>
+                  <mat-option *ngFor="let group of userSBU | SBUFilter :filterForm.bu" [value]="group.id">{{group.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxLayoutAlign="start center" fxLayoutGap="5px" fxFlex="140px">
+              <button mat-mini-fab (click)="searchUsersAdvanced()" class="customButton" matTooltip="Search">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button mat-mini-fab (click)="exportUsersAdvanced()" class="customButton" matTooltip="Export">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-mini-fab (click)="resetFilter()" class="customButton" matTooltip="Reset">
+                <mat-icon>restart_alt</mat-icon>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </fieldset> -->
+      <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="0px">
+        <div fxFlex="100">
+          <mat-form-field fxFlex="100" appearance="outline" class="noPadding">
+            <mat-label>Search User</mat-label>
+            <input matInput type="text" (keyup)="applyFilter(searchValue)" [(ngModel)]="searchValue">
+            <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear"
+              (click)="applyFilter(searchValue='')">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <!-- <mat-checkbox [(ngModel)]="isAdvancedSearch">Advance Search</mat-checkbox> -->
+        </div>
+        <div fxFlex="140px" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <button mat-flat-button color="primary" (click)="addEdit(false,'Add')" matTooltip="Add User">
+            Add User <mat-icon>person_add</mat-icon>
+          </button>
+          <!-- <button mat-mini-fab class="customButton" color="primary" (click)="addEdit(false,'Add')" matTooltip="Add User">
+          <mat-icon>person_add</mat-icon>
+        </button> -->
+          <!-- <button mat-mini-fab (click)="getAllUsers()" class="customButton" color="primary" matTooltip="Refresh">
+          <mat-icon>refresh
+          </mat-icon>
+        </button>
+        <button mat-mini-fab (click)="exportUsers()" class="customButton" color="primary" matTooltip="Refresh">
+          <mat-icon>save_alt
+          </mat-icon>
+        </button> -->
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " style="width: 100%;">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+          <th mat-header-cell *matHeaderCellDef> Username </th>
+          <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef> Active? </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf="element.status==activeStatusCode.active" class="user-active">check_circle</mat-icon>
+            <mat-icon *ngIf="element.status==activeStatusCode.inActive" class="user-inactive">highlight_off</mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button matTooltip="Edit" (click)="addEdit(element,'Update')" class="iconbutton"
+              color="primary">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator #userPagination class="" [pageSizeOptions]="[10]" showFirstLastButtons>
+      </mat-paginator>
+    </div> -->
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w100">
+        <ng-container *ngFor="let column of usercolumns" [matColumnDef]="column.columnDef">
+          <mat-header-cell *matHeaderCellDef [fxFlex]="column.width" class="gridcellmargin">
+            <span> {{ column.header }}</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row;let i=index" [fxFlex]="column.width" class="gridcellmargin"
+            fxLayoutAlign="start center">
+            <ng-container *ngIf="column.columnDef != 'action' && column.columnDef != 'active'">
+              <span>{{ column.cell(row,i) }}</span>
+            </ng-container>
+            <ng-container *ngIf="column.columnDef == 'active'">
+              <mat-icon matTooltip="Active" *ngIf="column.cell(row,i)==activeStatusCode.active" class="user-active">
+                check_circle</mat-icon>
+              <mat-icon matTooltip="InActive" *ngIf="column.cell(row,i)==activeStatusCode.inActive"
+                class="user-inactive">highlight_off</mat-icon>
+            </ng-container>
+            <ng-container *ngIf="column.columnDef == 'action'">
+              <button mat-icon-button matTooltip="Edit" (click)="addEdit(row,'Update')" class="iconbutton"
+                color="primary">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+            </ng-container>
+
+          </mat-cell>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="userDisplayedColumns;" fxLayout="row"></tr>
+        <tr mat-row *matRowDef="let row; columns: userDisplayedColumns;" fxLayout="row" class="">
+        </tr>
+      </table>
+
+    </div>
+    <mat-paginator #userPaginator class="" [pageSizeOptions]="[10]" showFirstLastButtons
+      [fxShow]="dataSource?.data?.length!=0">
+    </mat-paginator>
+  </div>
+  <div *ngIf="!displayUserTable" fxLayout="column" style="overflow: hidden;" class="hgtinner" fxLayoutGap="0px">
+    <div>
+      <h3 fxLayout="row" class="margin0">
+        <mat-label *ngIf="actionType==='Add'">Add New User</mat-label>
+        <mat-label *ngIf="actionType==='Update'">Update User</mat-label>
+      </h3>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div fxLayout="row" fxFlex="50" fxLayoutGap="10px" [formGroup]="groupForm">
+        <mat-form-field class="name" appearance="outline" fxFlex="50">
+          <mat-label>Name</mat-label>
+          <input matInput maxlength="200" placeholder="Name" formControlName="name" trim="blur" required>
+        </mat-form-field>
+        <mat-form-field class="userName" appearance="outline" fxFlex="50">
+          <mat-label>Username</mat-label>
+          <input matInput maxlength="200" placeholder="User Name" formControlName="userName" trim="blur" required>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxFlex="50" fxLayoutGap="10px" [formGroup]="groupForm">
+        <mat-form-field class="userEmail" appearance="outline" fxFlex="85">
+          <mat-label>Email</mat-label>
+          <input matInput maxlength="200" placeholder="Email" formControlName="email" trim="blur" required>
+        </mat-form-field>
+        <div fxLayoutAlign="start center">
+          <mat-slide-toggle class="userActive" formControlName="active">Active</mat-slide-toggle>
+        </div>
+
+        <!-- <mat-form-field class="userPassword" appearance="outline" fxFlex="50">
+        <mat-label>Password</mat-label>
+        <input matInput maxlength="200" type="password" placeholder="Password" formControlName="password" trim="blur"
+          required>
+      </mat-form-field> -->
+      </div>
+    </div>
+    <!-- <div fxLayout="column" fxFlex="auto" fxLayoutGap="5px"> -->
+    <!-- <div fxLayoutAlign="end center">
+        <button mat-flat-button color="primary" (click)="addRoleGroup()" matTooltip="Add">
+          Add <mat-icon>add</mat-icon>
+        </button>
+      </div> -->
+    <!-- <button mat-flat-button color="primary" (click)="addRoleGroup()" matTooltip="Add" *ngIf="stepper?.selectedIndex==1"
+      style="position: absolute;
+    right: 20px;">
+      Add <mat-icon>add</mat-icon>
+    </button> -->
+    <mat-tab-group fxFlex="calc(100% - 175px)" color="primary" linear="false" #stepper [@.disabled]="true"
+      class="custommat-elevation-z wh100 usergroup tab" (selectedTabChange)="onTabChange($event)">
+      <mat-tab label="Role / Group Mapping">
+        <div style="overflow: auto;">
+          <table mat-table [dataSource]="roleGroupdataSource" class="mat-elevation-z8 w100">
+            <ng-container *ngFor="let column of roleGroupcolumns" [matColumnDef]="column.columnDef">
+              <mat-header-cell *matHeaderCellDef [fxFlex]="column.width" class="gridcellmargin">
+                <mat-checkbox *ngIf="column.columnDef == 'select'" (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+                <span *ngIf="column.columnDef != 'select'"> {{ column.header }}</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i=index" [fxFlex]="column.width" class="gridcellmargin"
+                fxLayoutAlign="start center">
+                <ng-container *ngIf="column.columnDef == 'role'">
+                  <!-- <mat-form-field appearance="outline" fxFlex="90" style="margin-top: 10px;">
+                  <mat-label>Role</mat-label>
+                  <mat-select [(ngModel)]="row.role">
+                    <mat-option *ngFor="let role of userRoles" [value]="role">{{role.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+                  <span>{{row.role.name}}</span>
+                </ng-container>
+                <ng-container *ngIf="column.columnDef == 'country' && row.role!=''">
+                  <mat-form-field appearance="outline" fxFlex="100" style="margin-top: 10px;">
+                    <mat-label>Country</mat-label>
+                    <mat-select matNativeControl multiple [(ngModel)]="row.country" [value]="row.country">
+                      <mat-option *ngFor="let group of userCountry" [value]="group">{{group.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="column.columnDef == 'bu' && row.role!=''">
+                  <mat-form-field appearance="outline" fxFlex="100" style="margin-top: 10px;">
+                    <mat-label>BU</mat-label>
+                    <mat-select matNativeControl multiple [(ngModel)]="row.bu" [value]="row.bu">
+                      <mat-option *ngFor="let group of userBU" [value]="group">{{group.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="column.columnDef == 'sbu' && row.role!=''">
+                  <mat-form-field appearance="outline" fxFlex="100" style="margin-top: 10px;">
+                    <mat-label>SBU</mat-label>
+                    <mat-select matNativeControl multiple [(ngModel)]="row.sbu" [value]="row.sbu">
+                      <mat-option *ngFor="let group of userSBU " [value]="group">{{group.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="column.columnDef == 'custom' && row.role!=''">
+                  <mat-form-field appearance="outline" fxFlex="100" style="margin-top: 10px;">
+                    <mat-label>Custom</mat-label>
+                    <mat-select matNativeControl multiple [(ngModel)]="row.custom" [value]="row.custom">
+                      <mat-option *ngFor="let group of userCustom" [value]="group">{{group.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+
+                <mat-checkbox *ngIf="column.columnDef == 'select'" (click)=" $event.stopPropagation()"
+                  (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                  [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+
+
+
+
+                <!-- <div *ngIf="column.columnDef == 'action'" fxFlex="100" fxLayoutAlign="start center"
+                  class="actionButton">
+                  <button mat-icon-button color="primary" matTooltip="Delete" (click)="deleteRoleGroup(row,i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div> -->
+              </mat-cell>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="roleGroupDisplayedColumns;" fxLayout="row"></tr>
+            <tr mat-row *matRowDef="let row; columns: roleGroupDisplayedColumns;" fxLayout="row"
+              class="customRowHeight">
+            </tr>
+          </table>
+        </div>
+      </mat-tab>
+     
+    </mat-tab-group>
+
+    <!-- </div> -->
+    <!-- <div fxLayout="row" fxLayoutGap="10px">
+      <mat-slide-toggle class="userActive" formControlName="active">Active</mat-slide-toggle>
+    </div> -->
+    <div fxFlex="60px" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center" [formGroup]="groupForm">
+      <button mat-flat-button type="button" class="user-cancelBtn" color="warn" (click)="discard()">Discard</button>
+      <button mat-flat-button type="submit" class="user-saveBtn" color="primary"
+        (click)="saveUpdateUserData()">Save</button>
+    </div>
+  </div>
+</div>

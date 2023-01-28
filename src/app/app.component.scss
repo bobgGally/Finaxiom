@@ -25,10 +25,10 @@
     }
 
     &.activeMenu {
-        background: white;
+        background: #dec269;
 
         .mdc-list-item__primary-text {
-            color: #2d7c83 !important;
+            color: white !important;
             font-weight: bold;
         }
 
@@ -37,3 +37,16 @@
 
 }
 
+.innerContainer {
+
+    height: calc(100% - 95px);
+    padding: 10px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 6px;
+}
+
+.sideDrawer {
+    width: 200px;
+   padding: 0;
+}

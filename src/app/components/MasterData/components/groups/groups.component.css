@@ -1,0 +1,22 @@
+
+.group-active{
+  color: green;
+}
+
+.group-inactive{
+  color:red;
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb{
+  background-color: #0085ca !important;
+}
+
+.table-container {
+  position: relative;
+  overflow: auto;
+  height: calc(100% - 0px);
+}
+
+.hgt {
+  height: calc(100% - 20px) !important
+}

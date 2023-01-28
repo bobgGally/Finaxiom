@@ -1,0 +1,111 @@
+<!-- <div class="p10 white-bg wh100"> -->
+<div fxLayoutGap="10px" fxLayout="column" [fxShow]="displayRoleTable" class="p10 white-bg wh100">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="0px">
+    <mat-form-field class="roleSearch" appearance="outline" fxFlex="50">
+      <mat-label>Search Role</mat-label>
+      <input matInput type="text" (keyup)="applyFilter(searchValue)" [(ngModel)]="searchValue">
+      <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear"
+        (click)="applyFilter(searchValue='')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+
+    <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="10px">
+      <button mat-flat-button color="primary" (click)="addEdit(false,'Add')" matTooltip="Add Role">
+        <mat-icon>admin_panel_settings</mat-icon>
+      </button>
+      <button mat-flat-button (click)="getAllRoles()" color="primary" matTooltip="Refresh">Refresh <mat-icon>refresh
+        </mat-icon></button>
+    </div>
+
+  </div>
+  <div fxFlex="auto" fxLayout="column" style="overflow: auto;">
+    <table mat-table [dataSource]="dataSource" *ngIf="displayRoleTable" class="mat-elevation-z8 ">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Role Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef> Created On </th>
+        <td mat-cell *matCellDef="let element"> {{element.createdDate }} </td>
+      </ng-container>
+      <ng-container matColumnDef="modifiedDate">
+        <th mat-header-cell *matHeaderCellDef> Updated On </th>
+        <td mat-cell *matCellDef="let element"> {{element.lastModifiedDate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef> Active? </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon *ngIf="element.status==activeStatusCode.active" class="role-active">check_circle</mat-icon>
+          <mat-icon *ngIf="element.status==activeStatusCode.inActive" class="role-inactive">highlight_off</mat-icon>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button matTooltip="Edit" (click)="addEdit(element,'Update')" class="iconbutton"
+            color="primary">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <!-- <button mat-icon-button matTooltip="Delete" class="iconbutton" color="warn">
+                <mat-icon aria-label="Delete" (click)="deleteRole(element)">delete</mat-icon>
+              </button> -->
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator class="" [pageSizeOptions]="[10]" showFirstLastButtons [fxShow]="dataSource.data.length!=0">
+    </mat-paginator>
+  </div>
+
+</div>
+<div *ngIf="!displayRoleTable" class='role-addEdit-main wh100 p10 white-bg' [formGroup]="roleForm" fxLayout="column"
+  fxLayoutGap="10px">
+  <div>
+    <h3 fxLayout="row" class="margin0">
+      <mat-label *ngIf="actionType==='Add'">Add New Role</mat-label>
+      <mat-label *ngIf="actionType==='Update'">Update Role</mat-label>
+    </h3>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="10px">
+    <mat-form-field class="roleName" appearance="outline" fxFlex="50">
+      <mat-label>Role Name</mat-label>
+      <input matInput maxlength="200" placeholder="Name" formControlName="name" trim="blur" required>
+    </mat-form-field>
+    <!-- <mat-form-field class="siteMap" appearance="outline" fxFlex="50">
+            <mat-label>Site Maps</mat-label>
+            <mat-select formControlName="siteMap" [(ngModel)]="sitemap" multiple>
+              <mat-option *ngFor="let sitemap of siteMapData" [value]="sitemap">{{sitemap.name}}</mat-option>
+            </mat-select>       
+          </mat-form-field>  -->
+    <mat-slide-toggle class="roleActive" formControlName="active">Active</mat-slide-toggle>
+  </div>
+  <div fxLayout="column" fxLayoutGap="10px" fxFlex="auto">
+    <mat-label>Site Maps</mat-label>
+    <mat-selection-list formControlName="siteMap" [(ngModel)]="sitemap" class="selectionList-scroll-bar"
+      fxLayout="row wrap">
+      <mat-list-option checkboxPosition="before" *ngFor="let sitemap of siteMapData" [value]="sitemap" fxFlex="25">
+        {{sitemap.displayName}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+  <!-- <div fxLayout="row" fxLayoutGap="10px">
+          <mat-slide-toggle class="roleActive" formControlName="active">Active</mat-slide-toggle>
+        </div> -->
+
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center" fxFlex="60px">
+    <button mat-flat-button type="button" class="role-cancelBtn" color="warn" (click)="discard()">Discard</button>
+    <button mat-flat-button type="submit" class="role-saveBtn" color="primary"
+      (click)="saveUpdateRoleData()">Save</button>
+  </div>
+
+</div>
+
+
+<!-- </div> -->

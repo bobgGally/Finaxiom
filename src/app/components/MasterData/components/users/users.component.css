@@ -1,0 +1,87 @@
+.user-active {
+  color: green;
+}
+
+.user-inactive {
+  color: red;
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+  background-color: #0085ca !important;
+}
+
+mat-cell:first-of-type,
+mat-header-cell:first-of-type,
+mat-footer-cell:first-of-type {
+  padding-left: 5px !important;
+}
+
+mat-cell:last-of-type,
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
+  padding-right: 0px;
+}
+
+.table-container {
+  position: relative;
+  overflow: auto;
+  height: calc(100% - 0px);
+}
+
+.hgt {
+  height: calc(100% - 20px) !important
+}
+
+.customRowHeight {
+  height: 60px !important;
+}
+
+.customButton {
+  background-color: #689cd8;
+  color: whitesmoke;
+}
+
+.noPadding {
+  padding-top: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+}
+
+.fldset {
+  border: 1px solid #c7bfbd;
+  background: #f9f9f9;
+
+  legend {
+    color: white;
+    background: #689cd8;
+    padding: 2px 4px;
+    border-radius: 5px;
+  }
+}
+
+.hgtinner {
+  height: calc(100% - 0px) !important
+}
+
+.customRowHeight {
+  height: 60px !important;
+}
+
+.newAddButton {
+  position: absolute;
+  right: 25px;
+  margin: 0 !important;
+  background: #4e5664;
+  color: #fff;
+  top: 152px;
+  z-index: 9999;
+  height: 32px;
+  width: 140px;
+  line-height: 32px;
+}
+
+.usergroup.tab {
+  background-color: #94bbe8 !important;
+  margin-bottom: 0px !important;
+}
